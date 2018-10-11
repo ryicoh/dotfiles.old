@@ -1,7 +1,6 @@
 autoload -Uz compinit && compinit
 
 # zplug
-# zplugが無ければgitからclone
 if [[ ! -d ~/.zplug ]];then
   git clone https://github.com/zplug/zplug ~/.zplug
 fi
@@ -21,8 +20,12 @@ zplug 'b4b4r07/zplug-rm', lazy:yes
 zplug "plugins/git", from:oh-my-zsh
 zplug "peterhurford/git-aliases.zsh"
 
+# theme
 zplug "mafredri/zsh-async"
 zplug "sindresorhus/pure"
+
+# docker
+zplug "felixr/docker-zsh-completion"
 
 if ! zplug check --verbose; then
     printf "Install? [y/N]: "
@@ -35,12 +38,13 @@ zplug load
 export LSCOLORS=gxfxxxxxcxxxxxxxxxgxgx
 export LS_COLORS='di=34:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
-
+zstyle ':completion:*:*:docker:*' option-stacking yes
+zstyle ':completion:*:*:docker-*:*' option-stacking yes
 
 # tmux
-if [[ ! $TERM =~ screen ]]; then
-	exec tmux
-fi
+# if [[ ! $TERM =~ screen ]]; then
+#     exec tmux
+# fi
 
 # gcp
 if [ -f '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc' ]; then
@@ -51,6 +55,10 @@ fi
 if [ -f '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/bin/kubectl' ]; then
 	source <(kubectl completion zsh)
 fi
+
+# neovim
+export XDG_CONFIG_HOME=~/.config
+
 
 setopt auto_cd
 setopt nobeep
