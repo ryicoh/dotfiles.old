@@ -4,6 +4,7 @@ autoload -Uz compinit && compinit
 if [[ ! -d ~/.zplug ]];then
   git clone https://github.com/zplug/zplug ~/.zplug
 fi
+
 source ~/.zplug/init.zsh
 zplug "zplug/zplug", hook-build:'zplug --self-manage'
 
@@ -51,6 +52,10 @@ if [ -f '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.i
 	source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc'
 fi
 
+if [ -f '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc' ]; then
+    source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc'
+fi
+
 # kubectl
 if [ -f '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/bin/kubectl' ]; then
 	source <(kubectl completion zsh)
@@ -66,3 +71,15 @@ setopt nobeep
 alias vi="nvim"
 alias ls="ls -GF"
 alias gls="gls --color"
+alias docker-clear="docker rm -f \$(docker ps -aq) && docker rmi -f \$(docker images -q)"
+alias k="kubectl"
+
+export PATH="/usr/local/opt/php@7.1/bin:$PATH"
+export PATH="/usr/local/opt/php@7.1/sbin:$PATH"
+
+export PATH="/Users/ryicoh/flutter/bin:$PATH"
+export PATH="/Users/ryicoh/Library/Android/sdk/platform-tools:$PATH"
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="/Users/ryicoh/.sdkman"
+
